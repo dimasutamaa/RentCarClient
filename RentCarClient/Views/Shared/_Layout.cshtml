@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RentCar - @ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/RentCarClient.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <a asp-area="" asp-controller="" asp-action="" class="closebtn" onclick="closeNav()">&times;</a>
+        <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        <a asp-area="" asp-controller="" asp-action="">Riwayat Penyewaan</a>
+        <a asp-area="" asp-controller="" asp-action="">Kontak Kami</a>
+    </div>
+
+    <nav>
+        <div class="logo">
+            <span class="menu-toggle" onclick="openNav()">☰</span>
+            <span class="poppins-bold">RentCar</span>
+        </div>
+        <div>
+            <a asp-area="" asp-controller="Auth" asp-action="Login" class="btn ms-small">Login</a>
+            <a asp-area="" asp-controller="Auth" asp-action="Register" class="btn ms-small">Registrasi</a>
+            <!-- <p>Hai, dimas</p> -->
+        </div>
+    </nav>
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <footer>
+        <p class="poppins-medium">© 2024 RentCar App. Semua Hak Dilindungi.</p>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/script.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div>
+    <h1 class="poppins-bold">Selamat Datang di Rental Mobil Kami</h1>
+    <div class="search-container">
+        <div class="search-box">
+            <label for="pickup-date" class="poppins-regular">Pickup Date</label>
+            <input type="date" id="pickup-date">
+        </div>
+        <div class="search-box">
+            <label for="return-date" class="poppins-regular">Return Date</label>
+            <input type="date" id="return-date">
+        </div>
+        <div class="search-box">
+            <label for="filter-year" class="poppins-regular">Filter Tahun Pembuatan</label>
+            <select id="filter-year">
+                <option>Semua Tahun</option>
+                <option>2024</option>
+                <option>2023</option>
+                <option>2022</option>
+            </select>
+        </div>
+        <button class="btn mx-small" onclick="calculateDifference()" id="searchBtn">Cari</button>
+        <div id="result" class="danger"></div>
+    </div>
+
+    <div class="row mt-large" id="carList">
+        <div class="card">
+            <div class="image">
+                <img src="./assets/150x150.png" alt="150x150" />
+            </div>
+            <div class="body">
+                <p class="poppins-semibold">Aku Ayam 1</p>
+                <p class="poppins-regular my-medium">Rp. 100.000 / hari</p>
+            </div>
+            <button class="btn">Sewa Sekarang</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $("#carList").hide();
+
+        $("#searchBtn").on("click", async function () {
+            const pickUpDate = $("#pickup-date").val();
+            const returnDate = $("#return-date").val();
+
+            if (pickUpDate && returnDate) {
+                $("#carList").show();
+            } else {
+                $("#carList").hide();
+            }
+        });
+    </script>
+}
