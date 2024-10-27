@@ -5,6 +5,8 @@
     if (isNaN(pickupDate.getTime()) || isNaN(returnDate.getTime())) {
         document.getElementById("result").textContent = "Please select both dates.";
         return;
+    } else if (returnDate < pickupDate) {
+        document.getElementById("result").textContent = "Return date must be greater than pickup date";
     } else {
         document.getElementById("result").textContent = "";
     }
