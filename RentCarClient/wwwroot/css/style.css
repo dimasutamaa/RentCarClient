@@ -63,12 +63,12 @@ nav {
 }
 
 .sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #f8f8f8;
-    display: block;
-}
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #f8f8f8;
+        display: block;
+    }
 
 .sidenav .closebtn {
     position: absolute;
@@ -137,6 +137,9 @@ main {
     text-align: center;
     margin: 50px 0;
     margin-inline: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1 {
@@ -187,17 +190,51 @@ select {
     transition: transform 0.3s ease-in-out;
 }
 
-    .card:hover {
-        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-    }
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
 
-    .card p {
-        color: #6B597D;
-    }
+.card p {
+    color: #6B597D;
+}
 
 .image img {
     border-radius: 10px;
     width: 100%;
+}
+
+.history-container {
+    width: 65%;
+    margin-top: 30px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #E5CFFE;
+    color: #6d3d94;
+}
+
+td.paid {
+    color: green;
+}
+
+td.unpaid {
+    color: red;
 }
 
 footer {
@@ -207,7 +244,7 @@ footer {
     margin-top: 50px;
 }
 
-    footer p {
-        color: #6B597D;
-        ;
-    }
+footer p {
+    color: #6B597D;
+    ;
+}
