@@ -26,33 +26,70 @@
         <div id="result" class="danger"></div>
     </div>
 
-    <div class="row mt-large" id="carList">
-        <div class="card">
-            <div class="image">
-                <img src="./assets/150x150.png" alt="150x150" />
-            </div>
-            <div class="body">
-                <p class="poppins-semibold">Aku Ayam 1</p>
-                <p class="poppins-regular my-medium">Rp. 100.000 / hari</p>
-            </div>
-            <button class="btn">Sewa Sekarang</button>
-        </div>
+    <div id="wrapper-car-list">
     </div>
+
+    @await Html.PartialAsync("Component/component-car-list");
 </div>
 
 @section Scripts {
     <script>
-        $("#carList").hide();
+        $(document).ready(function () {
+            var app = {};
 
-        $("#searchBtn").on("click", async function () {
-            const pickUpDate = $("#pickup-date").val();
-            const returnDate = $("#return-date").val();
+            app.getReq = function (url, params) {
+                return new Promise(function (resolve, reject) {
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        data: params,
+                        success: function (response) {
+                            resolve(response);
+                        },
+                        error: function (error) {
+                            reject(error);
+                        },
+                        contentType: "application/json"
+                    });
+                });
+            };
 
-            if (pickUpDate && returnDate) {
-                $("#carList").show();
-            } else {
-                $("#carList").hide();
+            async function getCarList() {
+                try {
+                    let carListResponse = await app.getReq("/Car/GetCar");
+
+                    if (carListResponse && carListResponse.data) {
+                        return carListResponse.data;
+                    } else {
+                        alert("No car data found");
+                    }
+                } catch (error) {
+                    alert("Error fetching car list: " + error.message);
+                }
             }
+
+            async function initPage() {
+                const carList = await getCarList();
+
+                const templateCarList = _.template(
+                    $("#component-car-list").html()
+                );
+
+                $("#wrapper-car-list").html(
+                    templateCarList({
+                        data: carList
+                    })
+                );
+            }
+
+            $("#searchBtn").on("click", async function () {
+                const pickUpDate = $("#pickup-date").val();
+                const returnDate = $("#return-date").val();
+
+                if (pickUpDate && returnDate) {
+                    await initPage();
+                }
+            });
         });
     </script>
 }

@@ -1,0 +1,21 @@
+﻿<script type="text/template" id="component-car-list">
+    <div class="row mt-large" id="carList">
+        <% if (data && data.length > 0) { %>
+            <% _.each(data, function (item) { %>
+                <div class="card">
+                    <div class="image">
+                        @* <img src="<%= item.imageUrl %>" alt="<%= item.name %>" /> *@
+                        <img src="https://placehold.jp/150x150.png" alt="" />
+                    </div>
+                    <div class="body">
+                        <p class="poppins-semibold"><%= item.name %></p>
+                        <p class="poppins-regular my-medium">Rp. <%= item.price_per_day.toLocaleString() %> / hari</p>
+                    </div>
+                    <button class="btn">Sewa Sekarang</button>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p class="poppins-regular">No cars available for the selected date range.</p>
+        <% } %>
+    </div>
+</script>
