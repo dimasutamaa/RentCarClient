@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.OAuth;
 using RentCarClient.Handlers;
 using RentCarClient.Services;
 
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddScoped<ICar, CarHandler>();
+builder.Services.AddScoped<IAuth, AuthHandler>();
 
 var app = builder.Build();
 

@@ -13,41 +13,151 @@
 <body>
     <div class="container">
         <h2>Registrasi ke <span><a asp-area="" asp-controller="Home" asp-action="Index">RentCar</a></span></h2>
-        <form>
-            <div class="form-group">
-                <label for="username">Nama Lengkap</label>
-                <input type="text" id="username" placeholder="Masukkan nama lengkap Anda" required>
-            </div>
+        <div class="form-group">
+            <label for="txtUsername">Nama Lengkap</label>
+            <input type="text" id="txtUsername" placeholder="Masukkan nama lengkap Anda">
+            <div id="username-error" class="danger error-text"></div>
+        </div>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" id="email" placeholder="Masukkan email Anda" required>
-            </div>
+        <div class="form-group">
+            <label for="txtEmail">Email</label>
+            <input type="text" id="txtEmail" placeholder="Masukkan email Anda">
+            <div id="email-error" class="danger error-text"></div>
+        </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Masukkan password Anda" required>
-            </div>
+        <div class="form-group">
+            <label for="txtPassword">Password</label>
+            <input type="password" id="txtPassword" placeholder="Masukkan password Anda">
+            <div id="password-error" class="danger error-text"></div>
+        </div>
 
-            <div class="form-group">
-                <label for="re-password">Re-Password</label>
-                <input type="password" id="re-password" placeholder="Masukkan kembali password Anda" required>
-            </div>
+        <div class="form-group">
+            <label for="txtRePassword">Re-Password</label>
+            <input type="password" id="txtRePassword" placeholder="Masukkan kembali password Anda">
+            <div id="re-password-error" class="danger error-text"></div>
+        </div>
 
-            <div class="form-group">
-                <label for="phone">Nomor Telefon</label>
-                <input type="text" id="phone" placeholder="Masukkan nomor telefon Anda" required>
-            </div>
+        <div class="form-group">
+            <label for="txtPhone">Nomor Telefon</label>
+            <input type="text" id="txtPhone" placeholder="Masukkan nomor telefon Anda">
+            <div id="phone-error" class="danger error-text"></div>
+        </div>
 
-            <div class="form-group">
-                <label for="address">Alamat</label>
-                <input type="text" id="address" placeholder="Masukkan alamat Anda" required>
-            </div>
+        <div class="form-group">
+            <label for="txtAddress">Alamat</label>
+            <input type="text" id="txtAddress" placeholder="Masukkan alamat Anda">
+            <div id="address-error" class="danger error-text"></div>
+        </div>
 
-            <button type="submit" class="btn w-full">Register</button>
+        <button id="btnRegister" class="btn w-full">Register</button>
 
-            <p class="link">Sudah punya akun? <a asp-area="" asp-controller="Auth" asp-action="Login">Login disini</a></p>
-        </form>
+        <p class="link">Sudah punya akun? <a asp-area="" asp-controller="Auth" asp-action="Login">Login disini</a></p>
     </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var app = {};
+
+            app.postReq = function (url, params) {
+                return new Promise(function (resolve, reject) {
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: JSON.stringify(params),
+                        success: function (response) {
+                            resolve(response);
+                        },
+                        error: function (error) {
+                            reject(error);
+                        },
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json"
+                    })
+                });
+            }
+
+            async function registerCustomer(param) {
+                try {
+                    let registerCustomerResponse = await app.postReq("/Auth/RegisterCustomer", param);
+
+                    if (registerCustomerResponse.data == null) {
+                        alert("Error: " + registerCustomerResponse.message);
+                    } else {
+                        window.location.href = "/Auth/Login";
+                    }
+                } catch (error) {
+                    console.error("Registration failed:", error);
+                    alert("Error during registration.");
+                    return false;
+                }
+            }
+
+            function validateRequest() {
+                let isValid = true;
+                $(".error-text").html("");
+
+                const username = $("#txtUsername").val();
+                const email = $("#txtEmail").val();
+                const password = $("#txtPassword").val();
+                const repassword = $("#txtRePassword").val();
+                const phone = $("#txtPhone").val();
+                const address = $("#txtAddress").val();
+
+                if (!username) {
+                    $("#username-error").html("Username cannot be empty");
+                    isValid = false;
+                }
+
+                if (!email) {
+                    $("#email-error").html("Email cannot be empty");
+                    isValid = false;
+                }
+
+                if (!password) {
+                    $("#password-error").html("Password cannot be empty");
+                    isValid = false;
+                }
+
+                if (!repassword) {
+                    $("#re-password-error").html("Re-Password cannot be empty");
+                    isValid = false;
+                } else if (repassword !== password) {
+                    $("#re-password-error").html("Passwords do not match");
+                    isValid = false;
+                }
+
+                if (!phone) {
+                    $("#phone-error").html("Phone cannot be empty");
+                    isValid = false;
+                }
+
+                if (!address) {
+                    $("#address-error").html("Address cannot be empty");
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    return {
+                        name: username,
+                        email: email,
+                        password: password,
+                        re_password: repassword,
+                        phone_number: phone,
+                        address: address
+                    };
+                }
+
+                return null;
+            }
+
+            $("#btnRegister").on("click", async function () {
+                const param = validateRequest();
+                if (param) {
+                    await registerCustomer(param);
+                }
+            });
+        });
+    </script>
 </body>
 </html>

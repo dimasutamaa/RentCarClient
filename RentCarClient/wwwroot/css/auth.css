@@ -22,6 +22,12 @@ body {
     width: 400px;
 }
 
+.danger {
+    color: red;
+    margin-top: -13px;
+    font-size: small;
+}
+
 .w-full {
     width: 100%;
 }
