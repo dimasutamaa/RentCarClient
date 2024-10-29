@@ -1,0 +1,87 @@
+﻿@{
+    ViewData["Title"] = "Car Details";
+}
+
+<div class="details-container">
+    <h1 class="title">Sewa Mobil</h1>
+
+    <div class="slider-container">
+        <img id="slider-image"
+             src="@Url.Content("~/assets/150x150.png")"
+             alt="image slider"
+             width="60%"
+             height="60%" />
+    </div>
+    <button id="prev" class="btn">Previous</button>
+    <button id="next" class="btn">Next</button>
+
+    <div class="car-info">
+        <h2>Informasi Mobil</h2>
+        <table class="details-table">
+            <tr>
+                <td>Tipe Mobil</td>
+                <td>Mobil 1</td>
+            </tr>
+            <tr>
+                <td>Nama Mobil</td>
+                <td>Mobil 1 2022</td>
+            </tr>
+            <tr>
+                <td>Transmisi</td>
+                <td>Automatic</td>
+            </tr>
+            <tr>
+                <td>Jumlah Penumpang</td>
+                <td>4 Penumpang</td>
+            </tr>
+            <tr>
+                <td>Nama Penyewa</td>
+                <td>Dimas (dimas@example.com)</td>
+            </tr>
+            <tr>
+                <td>Tanggal Sewa</td>
+                <td>25 Oktober 2024 sampai 28 Oktober 2024</td>
+            </tr>
+            <tr>
+                <td>Harga Sewa</td>
+                <td>Rp. 450,000 / hari</td>
+            </tr>
+            <tr>
+                <td>Total Harga Sewa</td>
+                <td>Rp. 1,800,000</td>
+            </tr>
+            <tr>
+                <td colspan="2" id="rent-button">
+                    <button class="btn rent-button w-full">Sewa</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var images = [
+            "@Url.Content("~/assets/150x150.png")",
+            "@Url.Content("~/assets/150x150 (cyan).png")",
+            "@Url.Content("~/assets/150x150 (green).png")"
+        ];
+
+        var currentIndex = 0;
+
+        function updateImage(index) {
+            $("#slider-image").attr("src", images[index]);
+        }
+
+        $("#next").click(function () {
+            currentIndex = (currentIndex + 1) % images.length;
+            console.log(currentIndex);
+            updateImage(currentIndex);
+        });
+        $("#prev").click(function () {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            console.log(currentIndex);
+            updateImage(currentIndex);
+        });
+    </script>
+}

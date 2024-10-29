@@ -11,7 +11,7 @@
                         <p class="poppins-semibold"><%= item.name %></p>
                         <p class="poppins-regular my-medium">Rp. <%= item.price_per_day.toLocaleString() %> / hari</p>
                     </div>
-                    <button class="btn">Sewa Sekarang</button>
+                    <a href="/Car/Details/<%= item.car_id %>" class="btn">Sewa Sekarang</a>
                 </div>
             <% }); %>
         <% } else { %>

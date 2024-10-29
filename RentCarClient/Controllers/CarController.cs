@@ -12,6 +12,11 @@ namespace RentCarClient.Controllers
             _carApi = carApi;
         }
 
+        public IActionResult Details()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> GetCar()
         {
             var result = await _carApi.GetCar();
