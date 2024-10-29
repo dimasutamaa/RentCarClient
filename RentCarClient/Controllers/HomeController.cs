@@ -16,6 +16,9 @@ namespace RentCarClient.Controllers
 
         public IActionResult Index()
         {
+            var customerEmail = HttpContext.Session.GetString("CustomerEmail");
+            ViewData["CustomerEmail"] = customerEmail;
+
             return View();
         }
 

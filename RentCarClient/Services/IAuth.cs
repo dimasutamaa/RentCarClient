@@ -6,5 +6,6 @@ namespace RentCarClient.Services
     public interface IAuth
     {
         Task<ApiResponse<string>> RegisterCustomer(RegisterCustomerRequest request);
+        Task<ApiResponse<string>> LoginCustomer(LoginCustomerRequest request);
     }
 }

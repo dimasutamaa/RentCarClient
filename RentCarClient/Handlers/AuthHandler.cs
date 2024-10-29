@@ -33,5 +33,32 @@ namespace RentCarClient.Handlers
 
             return apiResponse;
         }
+
+        public async Task<ApiResponse<string>> LoginCustomer(LoginCustomerRequest request)
+        {
+            if (request == null)
+            {
+                return new ApiResponse<string>()
+                {
+                    StatusCode = 400,
+                    Data = "Bad Request"
+                };
+            }
+
+            string endpoint = baseUrl + "Auth/login/";
+            var response = await httpClient.PostAsJsonAsync(endpoint, request);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return new ApiResponse<string>()
+                {
+                    StatusCode = (int)response.StatusCode,
+                    Data = "Login failed"
+                };
+            }
+
+            var apiResponse = await response.Content.ReadFromJsonAsync<ApiResponse<string>>();
+            return apiResponse;
+        }
     }
 }

@@ -8,6 +8,15 @@ namespace RentCarClient.Controllers
         // GET: RentalController
         public IActionResult History()
         {
+            var customerEmail = HttpContext.Session.GetString("CustomerEmail");
+
+            if (string.IsNullOrEmpty(customerEmail))
+            {
+                return RedirectToAction("Login", "Auth");
+            }
+
+            ViewData["CustomerEmail"] = customerEmail;
+
             return View();
         }
     }

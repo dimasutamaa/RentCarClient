@@ -22,9 +22,16 @@
             <span class="poppins-bold">RentCar</span>
         </div>
         <div>
-            <a asp-area="" asp-controller="Auth" asp-action="Login" class="btn ms-small">Login</a>
-            <a asp-area="" asp-controller="Auth" asp-action="Register" class="btn ms-small">Registrasi</a>
-            <!-- <p>Hai, dimas</p> -->
+            @if (ViewData["CustomerEmail"] != null)
+            {
+                <span>Hai, @ViewData["CustomerEmail"]!</span>
+                <a asp-area="" asp-controller="Auth" asp-action="Logout" class="btn ms-small">Logout</a>
+            }
+            else
+            {
+                <a asp-area="" asp-controller="Auth" asp-action="Login" class="btn ms-small">Login</a>
+                <a asp-area="" asp-controller="Auth" asp-action="Register" class="btn ms-small">Registrasi</a>
+            }
         </div>
     </nav>
 

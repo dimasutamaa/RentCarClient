@@ -28,5 +28,26 @@ namespace RentCarClient.Controllers
             var result = await _authApi.RegisterCustomer(request);
             return Json(result);
         }
+
+        public async Task<IActionResult> LoginCustomer([FromBody] LoginCustomerRequest request)
+        {
+            var result = await _authApi.LoginCustomer(request);
+
+            if (result.StatusCode == 200)
+            {
+                HttpContext.Session.SetString("CustomerEmail", request.email);
+                return Ok(new { statusCode = 200, message = "Customer successfully logged in" });
+            }
+            else
+            {
+                return BadRequest(new { statusCode = result.StatusCode, message = "Invalid credentials" });
+            }
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
